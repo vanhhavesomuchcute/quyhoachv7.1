@@ -1,0 +1,61 @@
+<mat-drawer-container class="map-container" autosize>
+  <mat-drawer #drawer class="map-sidenav" mode="side" [opened]="showLeftPanel$ | async">
+    <div class="card rounded-0">
+      <div class="card-header min-h-50px h-50px ps-4 pe-1">
+        <h3 class="card-title">Thông tin quy hoạch</h3>
+        <div class="card-toolbar">
+          <button type="button" class="btn btn-sm btn-light">
+            Action
+          </button>
+          <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" (click)="onCloseLeftPanel()">
+            <span class="svg-icon svg-icon-1">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor"></rect>
+                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor"></rect>
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        Lorem Ipsum is simply dummy text...
+      </div>
+      <div class="card-footer">
+        Footer
+      </div>
+    </div>
+  </mat-drawer>
+  <div class="map-sidenav-content">
+    <div class="top-left-button">
+      <div class="btn btn-white btn-sm border border-dark rounded-pill me-2">
+        <div class="fs-4" data-kt-menu-trigger="{default: 'click', lg: 'click'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-start">
+          Tra cứu theo điểm
+        </div>
+        <app-quick-links-inner></app-quick-links-inner>
+      </div>
+      <div class="btn btn-white btn-sm border border-dark rounded-pill me-10">
+        <div class="fs-4" data-kt-menu-trigger="{default: 'click', lg: 'click'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-start">
+          Tra cứu theo vùng
+        </div>
+        <app-quick-links-inner></app-quick-links-inner>
+      </div>
+      <div class="btn btn-white btn-sm border border-dark rounded-circle px-1 py-1">
+        <button mat-icon-button class="fs-4" data-kt-menu-trigger="{default: 'click', lg: 'click'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-start">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <app-quick-menu></app-quick-menu>
+      </div>
+    </div>
+    <div class="top-right-button">
+      <div class="btn btn-white btn-sm border border-dark rounded px-0 py-0" style="display: flex;">
+        <button mat-button class="" data-kt-menu-trigger="{default: 'click', lg: 'click'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom">
+          <i class="fa-solid fa-layer-group me-1"></i>
+          <span class="fs-5 text-gray-800 mb-0">Bản đồ</span>
+        </button>
+        <mat-slider class="px-0 py-0" thumbLabel aria-label="unit(s)"></mat-slider>
+        <app-quick-menu-map></app-quick-menu-map>
+      </div>
+    </div>
+    <div id="divMap" class="w-100 h-100"></div>
+  </div>
+</mat-drawer-container>

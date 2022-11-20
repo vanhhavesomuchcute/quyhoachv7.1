@@ -1,0 +1,116 @@
+<div class="button-home" *ngIf="!showLeftPanel" (click)="onClickToggleLeft()">
+  <button mat-mini-fab color="primary">
+    <mat-icon>home</mat-icon>
+  </button>
+</div>
+<div class="button-account">
+  <button mat-icon-button>
+    <mat-icon>person</mat-icon>
+  </button>
+</div>
+<div class="button-app">
+  <button mat-icon-button>
+    <mat-icon>apps</mat-icon>
+  </button>
+</div>
+<mat-drawer-container class="map-container" autosize>
+  <mat-drawer #drawer class="map-sidenav" mode="side" opened="true">
+    <ng-container *ngIf="viewStatus$ | async as viewStatus">
+      <mat-toolbar color="primary" *ngIf="viewStatus.contentLeftPanel=='HOME'">
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" id="kt_menu_toggle">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span class="suEOdc">Bản đồ Mạng lưới cấp nước Dương Đông</span>
+        <span class="example-spacer"></span>
+        <button mat-icon-button class="example-icon favorite-icon" aria-label="Tìm kiếm" (click)="onClickSearch()">
+          <mat-icon>search</mat-icon>
+        </button>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="onClickToggleLeft()">Thu gọn chú giải bản đồ</button>
+          <button mat-menu-item>Chồng xếp các lớp bản đồ khác</button>
+          <button mat-menu-item>Hiển thị bản đồ ghi chú</button>
+          <button mat-menu-item>Tổng hợp theo vùng</button>
+        </mat-menu>
+      </mat-toolbar>
+      <div style="height:calc(100% - 64px);overflow:auto" *ngIf="viewStatus.contentLeftPanel=='HOME'">
+        <div class="card-body p-4">
+          <mat-checkbox checked class="fs-5">Chỉ hiển thị các lớp đang được vẽ trên bản đồ</mat-checkbox>
+          <div class="border-top mt-4" style="margin-left:-1rem;margin-right:-1rem"></div>
+          <div class="menu menu-column menu-state-bg menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary" style="width:auto!important;margin-left:-1rem!important;margin-right:-1rem!important">
+            <div class="menu-item p-0" [ngClass]="{'border-bottom border-bottom-dashed': !isLast}" *ngFor="let layer of layers; index as i; first as isFirst; last as isLast">
+              <span class="menu-link px-0 py-1">
+                <button mat-icon-button (click)="onClickLayerVisiblility(layer)">
+                  <mat-icon *ngIf="layer.visibility">visibility</mat-icon>
+                  <mat-icon *ngIf="!layer.visibility" style="color:#ccc">visibility_off</mat-icon>
+                </button>
+                <span class="svg-icon ms-1 me-3">
+                  <svg *ngIf="layer.type=='line'" version="1.1" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" style="height: 24px;"><g><defs key="defs"></defs><path key="path" stroke="hsl(118, 36%, 44%)" d="M0 20 L 20 0"></path></g><g><defs key="defs"></defs><path key="path" stroke="hsl(118, 36%, 44%)" d="M0 20 L 20 0"></path></g></svg>
+                  <svg *ngIf="layer.type!='line'" version="1.1" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" style="height: 24px;"><g><path key="l1" d="M 4,4 L 16,4 L 16,7 L 11.5 7 L 11.5 16 L 8.5 16 L 8.5 7 L 4 7 Z" stroke="#ffffff" stroke-width="2" fill="transparent" stroke-linejoin="round"></path><path key="l2" d="M 4,4 L 16,4 L 16,7 L 11.5 7 L 11.5 16 L 8.5 16 L 8.5 7 L 4 7 Z" fill="white"></path><path key="l3" d="M 4,4 L 16,4 L 16,7 L 11.5 7 L 11.5 16 L 8.5 16 L 8.5 7 L 4 7 Z" fill="#000000" opacity="1"></path></g><g><path key="l1" d="M 4,4 L 16,4 L 16,7 L 11.5 7 L 11.5 16 L 8.5 16 L 8.5 7 L 4 7 Z" stroke="#ffffff" stroke-width="2" fill="transparent" stroke-linejoin="round"></path><path key="l2" d="M 4,4 L 16,4 L 16,7 L 11.5 7 L 11.5 16 L 8.5 16 L 8.5 7 L 4 7 Z" fill="white"></path><path key="l3" d="M 4,4 L 16,4 L 16,7 L 11.5 7 L 11.5 16 L 8.5 16 L 8.5 7 L 4 7 Z" fill="#000000" opacity="1"></path></g></svg>
+                </span>
+                <span class="menu-title fs-5">{{layer.name}}</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <mat-toolbar *ngIf="viewStatus.contentLeftPanel=='SEARCH'">
+        <button mat-icon-button class="example-icon" (click)="onClickBack()">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <div style="width:calc(100% - 80px)">
+          <mat-form-field appearance="fill" class="w-100">
+            <input matInput matInputAutofocus [(ngModel)]="textSearch" (change)="onChangeTextSearch($event)" >
+          </mat-form-field>
+        </div>
+        <button mat-icon-button *ngIf="textSearch" (click)="onClickClearSearch()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-toolbar>
+      <div style="height:calc(100% - 64px);overflow:auto" *ngIf="viewStatus.contentLeftPanel=='SEARCH'">
+        <div class="card-body p-0" *ngIf="!viewStatus.searchRS">
+          <div class="d-flex flex-column flex-center mt-20 pt-10">
+            <span class="svg-icon svg-icon-muted svg-icon-5hx">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="currentColor" />
+                <rect x="11" y="14" width="7" height="2" rx="1" transform="rotate(-90 11 14)" fill="currentColor" />
+                <rect x="11" y="17" width="2" height="2" rx="1" transform="rotate(-90 11 17)" fill="currentColor" />
+              </svg>
+            </span>
+            <div class="fw-semibold py-2 text-gray-400 fs-2">Tìm kiếm bản đồ này</div>
+          </div>
+        </div>
+        <div class="card-body p-0" *ngIf="viewStatus.searchRS && viewStatus.searchRS.length==0">
+          <div class="d-flex flex-column flex-center mt-20 pt-10">
+            <span class="svg-icon svg-icon-muted svg-icon-5hx">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="currentColor" />
+                <rect x="11" y="14" width="7" height="2" rx="1" transform="rotate(-90 11 14)" fill="currentColor" />
+                <rect x="11" y="17" width="2" height="2" rx="1" transform="rotate(-90 11 17)" fill="currentColor" />
+              </svg>
+            </span>
+            <div class="fw-semibold py-2 text-gray-400 fs-2">Không tìm thấy kết quả</div>
+          </div>
+        </div>
+        <div class="card-body p-0"  *ngIf="viewStatus.searchRS && viewStatus.searchRS.length>0">
+          <div mat-subheader class="fs-4 fw-bold px-4 pt-4 pb-0">Từ dữ liệu của bạn</div>
+          <mat-selection-list #searchResult [multiple]="false">
+            <mat-list-option *ngFor="let note of notes" [value]="note">
+              <mat-icon mat-list-icon>note</mat-icon>
+              <div mat-line>{{note.name}}</div>
+              <div mat-line class="fw-bold text-gray-400"> {{note.layer}} </div>
+              <mat-divider></mat-divider>
+            </mat-list-option>
+          </mat-selection-list>
+        </div>
+      </div>
+    </ng-container>
+  </mat-drawer>
+
+  <div class="map-sidenav-content">
+    <div id="divMap" class="w-100 h-100"></div>
+  </div>
+</mat-drawer-container>

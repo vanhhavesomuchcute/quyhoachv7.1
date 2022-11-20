@@ -1,0 +1,45 @@
+<ng-container *ngIf="loginInfo$ | async as loginInfo">
+  <div class="menu-item px-3">
+    <div class="menu-content d-flex align-items-center px-3">
+      <div class="symbol symbol-50px me-5">
+        <img *ngIf="!loginInfo.profilePictureId" class="rounded-circle" src="./assets/media/avatars/blank.png" />
+        <img *ngIf="loginInfo.profilePictureId" class="rounded-circle" src="./assets/media/avatars/blank.png" />
+      </div>
+
+      <div class="d-flex flex-column">
+        <div class="fw-bolder d-flex align-items-center fs-5">
+          {{loginInfo.surname}} {{loginInfo.name}}
+        </div>
+        <span class="fw-bold text-muted text-hover-primary fs-7 cursor-pointer">
+          {{loginInfo.emailAddress}}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="separator my-2"></div>
+
+  <div class="menu-item px-5">
+    <a href="/UserInfomation/MySettings" target="_blank" class="menu-link px-5 fw-normal text-dark">
+      Cập nhật thông tin tài khoản
+    </a>
+  </div>
+
+  <div class="menu-item px-5">
+    <a href="/Account/ChangePassword" target="_blank" class="menu-link px-5 fw-normal text-dark">
+      Đổi mật khẩu
+    </a>
+  </div>
+
+  <div class="menu-item px-5">
+    <a href="/UserInfomation/ChangePicture" target="_blank" class="menu-link px-5 fw-normal text-dark">
+      Cập nhật ảnh đại diện
+    </a>
+  </div>
+
+  <div class="separator my-2"></div>
+
+  <div class="menu-item px-5">
+    <a href="/Account/Logout" class="menu-link px-5 cursor-pointer fw-normal text-dark"> Đăng xuất </a>
+  </div>
+</ng-container>

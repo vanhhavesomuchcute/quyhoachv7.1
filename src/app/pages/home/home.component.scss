@@ -1,0 +1,39 @@
+:host {
+  width: 100%;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.map-container {
+  width: 100%;
+  height: 100%;
+}
+
+.map-sidenav-content {
+  height: 100%;
+}
+
+.map-sidenav {
+  width: 431px;
+  border-right: 1px solid #ccc;
+}
+
+.top-left-button {
+  position: absolute;
+  z-index: 2;
+  top: 1rem;
+  left: 1rem;
+}
+
+.top-right-button {
+  position: absolute;
+  z-index: 2;
+  top: 1rem;
+  right: 1rem;
+}
+
+::ng-deep .btn-check:checked + .btn.btn-white, .btn-check:active + .btn.btn-white, .btn.btn-white:focus:not(.btn-active), .btn.btn-white:hover:not(.btn-active), .btn.btn-white:active:not(.btn-active), .btn.btn-white.active, .btn.btn-white.show, .show > .btn.btn-white {
+  background-color: #ffffff !important;
+}

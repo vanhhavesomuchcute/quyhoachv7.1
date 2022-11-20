@@ -1,0 +1,219 @@
+<div class="w-100">
+  <div class="d-flex flex-wrap flex-stack h-100px px-4">
+    <span class="fs-2 fw-bold mb-0" style="border-bottom: 2px solid rgb(85, 88, 219);">Danh sách bản đồ</span>
+  </div>
+  <div class="w-100 h-50px d-flex flex-stack px-4 pb-3 border-bottom" style="border-color: #d5d5e6!important">
+    <div class="page-title d-flex justify-content-center flex-wrap">
+      <button pButton pRipple type="button" label="Sao chép" icon="pi pi-copy" class="p-button-outlined p-button-secondary p-2 me-2"></button>
+      <button pButton pRipple type="button" label="Chia sẻ" icon="pi pi-share-alt" class="p-button-outlined p-button-secondary p-2 me-2"></button>
+      <button pButton pRipple type="button" label="Xóa" icon="pi pi-trash" class="p-button-outlined p-button-secondary p-2"></button>
+    </div>
+    <div class="page-title d-flex justify-content-center flex-wrap align-items-center">
+      <div class="me-4">
+        <span class="">Sắp xếp theo: </span>
+        <span style="cursor:pointer" class="fs-6 fw-bold" [matMenuTriggerFor]="menu">Mặc định</span>
+        <!--<button mat-button [matMenuTriggerFor]="menu">Menu</button>-->
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>arrow_upward</mat-icon>
+            <span>Tiêu đề</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>arrow_downward</mat-icon>
+            <span>Tiêu đề</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>arrow_upward</mat-icon>
+            <span>Ngày tạo</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>arrow_downward</mat-icon>
+            <span>Ngày tạo</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>arrow_upward</mat-icon>
+            <span>Ngày cập nhật</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>arrow_downward</mat-icon>
+            <span>Ngày cập nhật</span>
+          </button>
+        </mat-menu>
+      </div>
+      <button pButton pRipple type="button" icon="pi pi-info" class="p-button-outlined p-button-secondary p-2 me-2" (click)="toggleDetail()"></button>
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input type="text" class="p-inputtext-sm me-3 w-225px" pInputText placeholder="Gõ để tìm kiếm" />
+      </span>
+      <input id="file_map" type="file" style="display:none;" accept="application/json" (change)="onSelectFileMap($event)"/>
+      <p-button label="Nhập bản đồ" icon="pi pi-plus" styleClass="p-button-sm" (click)="onImportMap()"></p-button>
+    </div>
+  </div>
+  <mat-drawer-container class="main-container" autosize>
+    <mat-drawer #drawer class="main-sidenav w-300px" mode="side" position="end" opened="true">
+      <div class="card">
+        <div class="card-header px-3 py-3 h-50px min-h-50px">
+          <div class="d-flex justify-content-between align-items-center flex-wrap">
+            <!--begin::User-->
+            <div style="display: table; flex-direction: column; table-layout: fixed; width: calc(100% - 2rem);">
+              <span class="card-title fs-3" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: table-cell;">Bản đồ phân bố các nhà máy thủy điện trên toàn lãnh thổ Việt Nam</span>
+            </div>
+            <!--end::User-->
+            <!--begin::Actions-->
+            <div class="btn btn-sm btn-icon btn-active-color-primary" style="width:2rem" (click)="toggleDetail()">
+              <span class="svg-icon svg-icon-1">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor"></rect>
+                  <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor"></rect>
+                </svg>
+              </span>
+              <!--end::Svg Icon-->
+            </div>
+            <!--end::Actions-->
+          </div>
+        </div>
+        <div class="card-body p-3">
+          <div class="bgi-no-repeat bgi-position-center bgi-size-cover h-200px" style="background-image: url('/assets/media/map-empty.png')"></div>
+        </div>
+        <mat-tab-group mat-align-tabs="start">
+          <mat-tab label="Chi tiết">
+            <div class="card-body d-flex flex-column justify-content-end p-3">
+              <!--begin::Title-->
+              <span class="fs-6 fw-bold text-gray-800 d-block mb-2">Những người có thể truy cập</span>
+              <!--end::Title-->
+              <!--begin::Users group-->
+              <div class="symbol-group symbol-hover flex-nowrap">
+                <div class="symbol symbol-35px symbol-circle">
+                  <span class="symbol-label bg-warning text-inverse-warning fw-bold">A</span>
+                </div>
+                <div class="ms-2 w-1px h-35px border-start" style="border-color:#ccc!important"></div>
+                <div class="symbol symbol-35px symbol-circle ms-2" data-bs-toggle="tooltip" aria-label="Michael Eberon" data-bs-original-title="Michael Eberon" data-kt-initialized="1">
+                  <img alt="Pic" src="/assets/media/avatars/300-11.jpg">
+                </div>
+                <div class="symbol symbol-35px symbol-circle ms-2" data-bs-toggle="tooltip" data-bs-original-title="Susan Redwood" data-kt-initialized="1">
+                  <span class="symbol-label bg-primary text-inverse-primary fw-bold">S</span>
+                </div>
+                <div class="symbol symbol-35px symbol-circle ms-2" data-bs-toggle="tooltip" aria-label="Melody Macy" data-bs-original-title="Melody Macy" data-kt-initialized="1">
+                  <img alt="Pic" src="/assets/media/avatars/300-2.jpg">
+                </div>
+                <div class="symbol symbol-35px symbol-circle ms-2" data-bs-toggle="tooltip" aria-label="Barry Walter" data-bs-original-title="Barry Walter" data-kt-initialized="1">
+                  <img alt="Pic" src="/assets/media/avatars/300-12.jpg">
+                </div>
+                <a href="javascript:;" class="symbol symbol-35px symbol-circle ms-2">
+                  <span class="symbol-label bg-dark text-gray-300 fs-8 fw-bold">+42</span>
+                </a>
+              </div>
+              <!--end::Users group-->
+            </div>
+            <div class="card-body p-3 border-top">
+              <span class="fs-6 fw-bold text-gray-800 d-block mb-2">Thông tin chi tiết</span>
+              <div class="row pb-3 border-bottom1">
+                <label class="col-lg-4 text-gray-700">Dung lượng</label>
+                <div class="col-lg-8">
+                  <span class="text-gray-800">5.28 Mb</span>
+                </div>
+              </div>
+              <div class="row pb-3 border-bottom1">
+                <label class="col-lg-4 text-gray-700">Khởi tạo</label>
+                <div class="col-lg-8">
+                  <span class="text-gray-800">11/10/2022 bởi Nguyễn Anh Tuấn</span>
+                </div>
+              </div>
+              <div class="row pb-3 border-bottom1">
+                <label class="col-lg-4 text-gray-700">Chỉnh sửa</label>
+                <div class="col-lg-8">
+                  <span class="text-gray-800">13/10/2022 bởi Nguyễn Anh Tuấn</span>
+                </div>
+              </div>
+              <div class="row border-bottom1">
+                <label class="col-lg-4 text-gray-700">Mở xem</label>
+                <div class="col-lg-8">
+                  <span class="text-gray-800">13/10/2022 bởi Nguyễn Anh Tuấn</span>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-3 border-top" style="text-align: justify;">
+              <span class="text-gray-800">Bản đồ phân bố các nhà máy thủy điện trên toàn lãnh thổ Việt Nam</span>
+            </div>
+          </mat-tab>
+          <mat-tab label="Hoạt động">
+            <div class="card-body p-3">
+              <div class="d-flex align-items-center flex-grow-1 py-3 border-bottom">
+                <div class="symbol symbol-45px me-5">
+                  <img class="rounded-circle" src="/assets/media/avatars/300-2.jpg" alt="">
+                </div>
+                <div class="d-flex flex-column">
+                  <span class="text-gray-900 fs-6"><b>Nguyễn Anh Tuấn</b> đã sửa bản đồ</span>
+                  <span class="text-gray-600">Hôm qua lúc 5:06 PM</span>
+                </div>
+              </div>
+              <div class="d-flex align-items-center flex-grow-1 py-3 border-bottom">
+                <div class="symbol symbol-45px me-5">
+                  <img class="rounded-circle" src="/assets/media/avatars/300-6.jpg" alt="">
+                </div>
+                <div class="d-flex flex-column">
+                  <span class="text-gray-900 fs-6"><b>Nguyễn Anh Tuấn</b> đã chia sẻ bản đồ</span>
+                  <span class="text-gray-600">Hôm qua lúc 5:06 PM</span>
+                </div>
+              </div>
+              <div class="d-flex align-items-center flex-grow-1 py-3 border-bottom">
+                <div class="symbol symbol-45px me-5">
+                  <img class="rounded-circle" src="/assets/media/avatars/300-3.jpg" alt="">
+                </div>
+                <div class="d-flex flex-column">
+                  <span class="text-gray-900 fs-6"><b>Nguyễn Anh Tuấn</b> đã sửa bản đồ</span>
+                  <span class="text-gray-600">Hôm qua lúc 5:06 PM</span>
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </mat-drawer>
+
+    <div class="main-sidenav-content">
+      <div class="row mt-4 mx-0" *ngIf="listMap.items.length > 0" style="height:calc(100vh - 215px - 1rem);overflow:auto">
+        <div class="col-md-4 col-lg-3 col-xl-2 mb-6 px-4 min-w-250px" *ngFor="let app of listMap.items;">
+          <div class="card card-flush border" style="border-color: #d5d5e6!important">
+            <!--begin::Body-->
+            <div class="card-body text-center pb-3 p-0">
+              <!--begin::Overlay-->
+              <a class="d-block overlay">
+                <!--begin::Image-->
+                <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded-top mb-4 h-200px" style="background-image: url('/assets/media/map-empty.png')"></div>
+                <!--end::Image-->
+                <!--begin::Action-->
+                <div class="overlay-layer card-rounded bg-dark bg-opacity-25">
+                  <i class="bi bi-eye-fill fs-2x text-white"></i>
+                </div>
+                <!--end::Action-->
+              </a>
+              <!--end::Overlay-->
+              <!--begin::Info-->
+              <div class="d-flex align-items-end flex-stack mb-1 px-3">
+                <!--begin::Title-->
+                <div class="text-start">
+                  <div style="display: table; flex-direction: column; table-layout: fixed; width: 100%;">
+                    <span class="fw-bold text-gray-800 cursor-pointer text-hover-primary fs-4 d-block" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: table-cell;">{{app.name}}</span>
+                  </div>
+                  <div style="display: table; flex-direction: column; table-layout: fixed; width: 100%;">
+                    <span class="text-gray-700 mt-1 fs-6" *ngIf="app.description" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: table-cell;">{{app.description}}</span>
+                    <span class="text-gray-700 mt-1 fs-6" *ngIf="!app.description" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: table-cell;">No description</span>
+                  </div>
+                </div>
+                <!--end::Title-->
+              </div>
+              <!--end::Info-->
+            </div>
+            <!--end::Body-->
+          </div>
+        </div>
+        <div *ngIf="listMap.length == 0">
+          Chưa có bản đồ nào
+        </div>
+      </div>
+    </div>
+
+  </mat-drawer-container>
+
+</div>
